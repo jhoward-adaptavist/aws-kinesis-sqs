@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "sqs_policy" {
       identifiers = ["lambda.amazonaws.com"]
     }
 
-    resources = ["*", var.process_record_lambda_arn]
+    resources = ["*"]
   }
 
   statement {
