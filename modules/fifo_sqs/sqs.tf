@@ -86,14 +86,15 @@ data "aws_iam_policy_document" "sqs_policy" {
       identifiers = ["lambda.amazonaws.com"]
     }
 
-    resources = ["*"]
+    resources = ["*", var.process_record_lambda_arn]
   }
 
   statement {
     sid    = "lambda_send_message"
     effect = "Allow"
     actions = [
-      "sqs:SendMessage"
+      "sqs:SendMessage",
+      "sqs:ReceiveMessage"
     ]
 
     principals {

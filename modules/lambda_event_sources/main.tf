@@ -35,3 +35,4 @@ resource "aws_lambda_permission" "allow_kinesis" {
   principal     = "kinesis.amazonaws.com"
   source_arn    = var.kinesis_arn
 }
+
