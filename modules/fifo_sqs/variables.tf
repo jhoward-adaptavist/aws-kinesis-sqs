@@ -13,3 +13,7 @@ variable "slack_sns_arn" {
 variable "tags" {
   type = map(string)
 }
+
+variable "process_record_lambda_arn" {
+  type = string
+}
