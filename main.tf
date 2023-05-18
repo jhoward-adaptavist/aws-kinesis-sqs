@@ -5,7 +5,7 @@ data "aws_kinesis_stream" "kinesis_stream" {
 module "records_sqs" {
   source                = "./modules/fifo_sqs"
   dlq_max_receive_count = 10
-  queue_name            = "${var.product}_${var.record_type}"
+  queue_name            = "${var.product}-${var.record_type}"
   tags                  = local.tags
   slack_sns_arn         = ""
 }
