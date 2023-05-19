@@ -34,7 +34,7 @@ def lambda_handler(event, context):
         sqs.send_message(
                 QueueUrl=queue_url,
                 MessageBody=dataJson.decode("utf-8"),
-                MessageDeduplicationId=dataBase64,
+                MessageDeduplicationId=data['sent_timestamp'],
                 MessageGroupId=groupId)      
 
 
