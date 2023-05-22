@@ -11,7 +11,7 @@ resource "aws_lambda_event_source_mapping" "kinesis_source_mapping" {
   bisect_batch_on_function_error = true
   maximum_retry_attempts         = 3
   dynamic "filter_criteria" {
-    for_each = var.sqs_event_filtering_path ? [1] : []
+    for_each = var.sqs_event_filtering_path != "" ? [1] : []
     content {
     filter {
       pattern = jsonencode({
