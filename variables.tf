@@ -41,3 +41,14 @@ variable "process_record_lambda_name" {
 variable "sqs_event_filtering_path" {
   type = string
 }
+
+variable "lambda_function_name_override" {
+  type = string
+  default = ""
+}
+
+variable "sqs_queue_name_override" {
+  type = string
+  default = ""
+}
+

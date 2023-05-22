@@ -25,6 +25,7 @@ def lambda_handler(event, context):
         data = json.loads(dataJson)
         logger.info(data)
         groupId = ""
+
         
         if data[data_primary_key] :
             groupId = data[data_primary_key]
@@ -34,7 +35,7 @@ def lambda_handler(event, context):
         sqs.send_message(
                 QueueUrl=queue_url,
                 MessageBody=dataJson.decode("utf-8"),
-                MessageDeduplicationId=data['sent_timestamp'],
+                MessageDeduplicationId=str(hash(dataJson)),
                 MessageGroupId=groupId)      
 
 
