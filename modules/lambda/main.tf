@@ -95,7 +95,7 @@ data "aws_iam_policy_document" "access_policy_document" {
 }
 
 resource "aws_iam_policy" "access_policy" {
-  name   = "${var.function_name}-process-data"
+  name   = "add_record_to_sqs-process-data"
   policy = data.aws_iam_policy_document.access_policy_document.json
 }
 
