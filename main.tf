@@ -8,6 +8,7 @@ module "records_sqs" {
   queue_name            = coalesce(var.sqs_queue_name_override , "${var.product}-${var.record_type}")
   tags                  = local.tags
   slack_sns_arn         = ""
+  kms_key_arn_list     = [module.records_sqs.kms_key_arn]
 }
 
 module "add_record_to_sqs" {
