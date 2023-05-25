@@ -14,6 +14,3 @@ variable "tags" {
   type = map(string)
 }
 
-variable "kms_key_arn_list" {
-  type = list(string)
-}
