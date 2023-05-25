@@ -1,6 +1,6 @@
 module "sqs_message_processor" {
   source                 = "Adaptavist/aws-lambda/module"
-  version                = "1.13.0"
+  version                = "1.16.0"
   name                   = var.function_name
   namespace              = var.namespace
   stage                  = var.stage
