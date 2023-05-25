@@ -22,7 +22,7 @@ resource "aws_sqs_queue" "sqs_queue" {
 
 resource "aws_sqs_queue" "dlq_sqs_queue" {
   name                      = "${var.queue_name}-dlq.fifo"
-  kms_master_key_id         = aws_kms_key.kms_key.key_id
+  kms_master_key_id         = var.kms_key_arn_list[0]
   fifo_queue                = true
   deduplication_scope       = "messageGroup"
   fifo_throughput_limit     = "perMessageGroupId"
@@ -38,18 +38,18 @@ resource "aws_sqs_queue" "dlq_sqs_queue" {
   tags = var.tags
 }
 
-resource "aws_kms_key" "kms_key" {
-  description            = "Key used for the SQS queue ${var.queue_name}"
-  policy                 = data.aws_iam_policy_document.kms_policy.json
-  tags                   = var.tags
-  is_enabled             = true
-  enable_key_rotation    = true
-}
+# resource "aws_kms_key" "kms_key" {
+#   description            = "Key used for the SQS queue ${var.queue_name}"
+#   policy                 = data.aws_iam_policy_document.kms_policy.json
+#   tags                   = var.tags
+#   is_enabled             = true
+#   enable_key_rotation    = true
+# }
 
-resource "aws_kms_alias" "kms_alias" {
-  name          = "alias/${var.queue_name}"
-  target_key_id = aws_kms_key.kms_key.key_id
-}
+# resource "aws_kms_alias" "kms_alias" {
+#   name          = "alias/${var.queue_name}"
+#   target_key_id = aws_kms_key.kms_key.key_id
+# }
 
 resource "aws_cloudwatch_metric_alarm" "dlq_alarm" {
   alarm_name                = "${var.queue_name}-dlq"
