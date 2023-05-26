@@ -8,6 +8,7 @@ module "records_sqs" {
   queue_name            = coalesce(var.sqs_queue_name_override , "${var.product}-${var.record_type}")
   tags                  = local.tags
   slack_sns_arn         = ""
+  kms_key_arn           = module.add_record_to_sqs.lambda_kms_key_arn
 }
 
 module "add_record_to_sqs" {
@@ -15,7 +16,7 @@ module "add_record_to_sqs" {
   code_dir              = "${path.module}/add_record_to_sqs"
   description           = "A lambda that takes a record from kinesis and pushes it onto a SQS FIFO queue"
   function_name         = coalesce(var.lambda_function_name_override, "add_${var.product}_${var.record_type}_record_to_sqs")
-  kms_key_arn_list      = [module.records_sqs.kms_key_arn]
+  kms_key_arn_list      = [""]
   namespace             = var.product
   sqs_write_arn_list    = [module.records_sqs.queue_arn]
   kinesis_read_arn_list = [data.aws_kinesis_stream.kinesis_stream.arn]
