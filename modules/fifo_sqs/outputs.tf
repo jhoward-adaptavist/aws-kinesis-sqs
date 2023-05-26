@@ -1,6 +1,6 @@
-# output "kms_key_arn" {
-#   value = aws_kms_key.kms_key.arn
-# }
+output "kms_key_arn" {
+  value = aws_kms_key.kms_key.arn
+}
 
 output "queue_arn" {
   value = aws_sqs_queue.sqs_queue.arn
