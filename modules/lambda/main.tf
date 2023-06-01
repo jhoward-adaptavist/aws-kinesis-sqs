@@ -12,7 +12,7 @@ module "sqs_message_processor" {
   memory_size            = 512
   description            = var.description
   function_name          = var.function_name
-  enable_cloudwatch_logs = false
+  enable_cloudwatch_logs = true
   aws_region             = var.region
   disable_label_function_name_prefix = true
   enable_tracing = true
