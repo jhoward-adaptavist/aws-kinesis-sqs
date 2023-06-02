@@ -6,6 +6,10 @@ variable "namespace" {
   type = string
 }
 
+variable "product" {
+  type = string
+}
+
 variable "tags" {
   type = map(string)
 }

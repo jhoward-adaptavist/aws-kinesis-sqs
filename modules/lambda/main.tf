@@ -17,9 +17,50 @@ module "sqs_message_processor" {
   disable_label_function_name_prefix = true
   enable_tracing = true
   tracing_mode = "Active"
-  kms_key_arn  = "arn:aws:kms:us-west-2:437069093246:key/2b1b9592-705b-4ba3-9619-74f14b70baf6"
+  kms_key_arn  = aws_kms_key.kms_key.arn
   environment_variables = var.environment_variables
 }
+
+resource "aws_kms_key" "kms_key" {
+  description            = "Key used for the add record lambda ${var.function_name}"
+  policy                 = data.aws_iam_policy_document.kms_policy.json
+  tags                   = var.tags
+  is_enabled             = true
+  enable_key_rotation    = true
+}
+
+resource "aws_kms_alias" "kms_alias" {
+  name          = "alias/add_${var.product}_record_to_sqs_kms_key"
+  target_key_id = aws_kms_key.kms_key.key_id
+}
+
+data "aws_iam_policy_document" "kms_policy" {
+
+  statement {
+    sid     = "s3_access"
+    effect  = "Allow"
+    actions = ["kms:*"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+    resources = ["*"]
+  }
+
+  statement {
+    sid     = "account_access"
+    effect  = "Allow"
+    actions = ["kms:*"]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+    }
+    resources = ["*"]
+  }
+}
+
 
 data "aws_iam_policy_document" "access_policy_document" {
   statement {
