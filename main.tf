@@ -22,6 +22,7 @@ module "add_record_to_sqs" {
   stage                 = var.stage
   tags                  = local.tags
   slack_sns_arn         = ""
+  enable_cloudwatch_logs = var.enable_cloudwatch_logs
 
   environment_variables = {
     SQS_QUEUE_URL = module.records_sqs.queue_url
