@@ -52,3 +52,8 @@ variable "sqs_queue_name_override" {
   default = ""
 }
 
+variable "enable_cloudwatch_logs" {
+  type = bool
+  default = true
+}
+

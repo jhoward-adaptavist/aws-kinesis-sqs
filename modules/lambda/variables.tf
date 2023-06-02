@@ -63,5 +63,11 @@ variable "maximum_batching_window_in_seconds" {
   default = 0
 }
 
+variable "enable_cloudwatch_logs" {
+  type = bool
+  default = true
+}
+
+
 
 

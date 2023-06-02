@@ -25,7 +25,7 @@ module "add_record_to_sqs" {
 
   environment_variables = {
     SQS_QUEUE_URL = module.records_sqs.queue_url
-    IS_FIFO_QUEUE = "true",
+    IS_FIFO_QUEUE = "true", 
     DATA_PRIMARY_KEY = var.data_primary_key
   }
 
