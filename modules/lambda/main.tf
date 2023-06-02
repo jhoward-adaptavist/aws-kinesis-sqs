@@ -21,6 +21,9 @@ module "sqs_message_processor" {
   environment_variables = var.environment_variables
 }
 
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
 resource "aws_kms_key" "kms_key" {
   description            = "Key used for the add record lambda ${var.function_name}"
   policy                 = data.aws_iam_policy_document.kms_policy.json
