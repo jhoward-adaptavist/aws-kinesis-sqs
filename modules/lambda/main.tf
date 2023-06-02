@@ -17,6 +17,7 @@ module "sqs_message_processor" {
   disable_label_function_name_prefix = true
   enable_tracing = true
   tracing_mode = "Active"
+  kms_key_arn  = "arn:aws:kms:us-west-2:437069093246:key/2b1b9592-705b-4ba3-9619-74f14b70baf6"
   environment_variables = var.environment_variables
 }
 
